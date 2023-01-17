@@ -1,3 +1,6 @@
+/**
+ * v1.0.0 2023/01/17 gqd Add less options;
+ */
 import { resolve } from 'path';
 
 import { defineConfig } from 'vite'
@@ -14,6 +17,13 @@ export default defineConfig({
     vueJsx(),
     Markdown()
   ],
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+      }
+    },
+  },
   resolve: {
     alias: {
       // '@': fileURLToPath(new URL('./src', import.meta.url))

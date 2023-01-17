@@ -4,11 +4,20 @@
   <div>
     <div class="code-preview-topline"><div></div></div>
     <div class="code-preview-icons">
-      <a-tooltip
-        :title="isCollapsed ? '显示代码' : '隐藏代码'"
-      >
-        <code-filled @click="onShowOrHideCodeIconClicked" />
-      </a-tooltip>
+      <span>
+        <a-tooltip
+          title="复制代码"
+        >
+          <copy-outlined @click="onCopyClicked" />
+        </a-tooltip>
+      </span>
+      <span>
+        <a-tooltip
+          :title="isCollapsed ? '显示代码' : '隐藏代码'"
+        >
+          <code-outlined @click="onShowOrHideCodeIconClicked" />
+        </a-tooltip>
+      </span>
     </div>
     <div v-if="!isCollapsed" class="code-preview-content">
       <pre class="language-html" v-html="code"></pre>
@@ -18,14 +27,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Prism from 'prismjs';
-import { CodeFilled } from '@ant-design/icons-vue';
+import useClipboard from 'vue-clipboard3';
+
+import { message } from 'ant-design-vue';
+import {
+  CodeOutlined,
+  CopyOutlined
+} from '@ant-design/icons-vue';
 
 import 'prismjs/themes/prism.css';
 
 export default defineComponent({
 	name: 'CodePreview',
   components: {
-    CodeFilled,
+    CodeOutlined,
+    CopyOutlined
   },
   props: {
     sourceCode: {
@@ -47,10 +63,20 @@ export default defineComponent({
     onShowOrHideCodeIconClicked() {
       this.isCollapsed = !this.isCollapsed;
     },
+    async onCopyClicked() {
+      const { toClipboard } = useClipboard()
+      try {
+        await toClipboard(this.sourceCode)
+        message.success('代码复制成功！')
+      } catch (e) {
+        console.error(e)
+        message.error('您的浏览器不支持复制！')
+      }
+    },
   },
 })
 </script>
-<style scoped>
+<style lang="less" scoped>
 .code-preview-topline {
   width: 100%;
   padding: 20px 0 12px;
@@ -63,9 +89,13 @@ export default defineComponent({
   text-align: center;
   padding: 4px 0;
   color: #888;
-  font-size: 16px;
+  font-size: 24px;
+  > span + span {
+    margin-left: 8px;
+  }
 }
 .code-preview-content {
+  position: relative;
   padding: 20px;
 }
 </style>
