@@ -1,6 +1,7 @@
 <!-- v0.0.1 2023/01/04 gqd Init version; -->
 <!--        2023/01/03 gqd Change to insensitive name; -->
 <!--        2023/01/11 gqd Use typescript; -->
+<!--        2023/01/17 gqd Optimize layout; -->
 <template>
   <a-layout style="height: 100%;">
     <a-layout-header>
@@ -44,14 +45,14 @@
           </template>
         </a-menu>
       </a-layout-sider>
-      <a-layout style="padding: 0 24px 24px; min-height: 100%;">
+      <div class="page-container">
         <a-breadcrumb style="margin: 16px 0">
           <a-breadcrumb-item v-for="matchedRoute in currentMatchedRoutes" :key="matchedRoute.name">{{ matchedRoute.meta.title }}</a-breadcrumb-item>
-          </a-breadcrumb>
-          <a-layout-content :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
-            <router-view></router-view>
-          </a-layout-content>
-      </a-layout>
+        </a-breadcrumb>
+        <div class="page-content-container">
+          <router-view></router-view>
+        </div>
+      </div>
     </a-layout>
   </a-layout>
 </template>
@@ -130,4 +131,16 @@ export default defineComponent({
   color: #2c3e50;
   height: 100%;
 }
+
+.page-container {
+  padding: 0 24px 24px;
+  min-height: 100%;
+  overflow-y: auto;
+  width: calc(100% - 240px);
+}
+.page-content-container {
+  width: 100%;
+  background: #fff;
+  padding: 24px;
+  minHeight: 280px;
 </style>
