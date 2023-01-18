@@ -1,5 +1,6 @@
 <!-- v0.0.1 2023/01/04 gqd Init version; -->
 <!--        2023/01/11 gqd Add highlight styles; -->
+<!--        2023/01/17 gqd Add clipboard actions; -->
 <template>
   <div>
     <div class="code-preview-topline"><div></div></div>
@@ -89,7 +90,7 @@ export default defineComponent({
   text-align: center;
   padding: 4px 0;
   color: #888;
-  font-size: 24px;
+  font-size: 16px;
   > span + span {
     margin-left: 8px;
   }

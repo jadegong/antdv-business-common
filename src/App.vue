@@ -143,4 +143,5 @@ export default defineComponent({
   background: #fff;
   padding: 24px;
   minHeight: 280px;
+ }
 </style>
