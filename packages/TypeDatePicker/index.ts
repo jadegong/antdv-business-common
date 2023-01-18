@@ -6,7 +6,7 @@ import TypeDatePicker from './src/index.vue';
 
 export const TypeDatePickerPlugin: Plugin = {
   install(app: App) {
-    app.component('type-date-picker', TypeDatePicker);
+    app.component('abc-type-date-picker', TypeDatePicker);
   },
 };
 

@@ -3,12 +3,12 @@
     <div style="width: 60%; margin: 0 auto">
       <a-form layout="inline">
         <a-form-item label="">
-          <type-date-picker
+          <abc-type-date-picker
             :value="typeDatePickerValue"
             :dateTypes="dateTypes"
             @onTypeDateValueChange="onTypeDateValueChange"
           >
-          </type-date-picker>
+          </abc-type-date-picker>
         </a-form-item>
       </a-form>
     </div>
