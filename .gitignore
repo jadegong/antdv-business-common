@@ -84,7 +84,12 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+
+# build output
+# dist
+docs
+abc.jadegong.cn.tar.gz
+abc.jadegong.cn
 
 # Gatsby files
 .cache/

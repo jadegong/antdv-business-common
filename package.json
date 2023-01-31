@@ -1,7 +1,23 @@
 {
   "name": "antdv-business-common",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1-alpha",
+  "description": "Common business components for antdv",
+  "author": "jadegong<jadegong@sina.cn>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jadegong/antdv-business-common"
+  },
+  "bugs": "https://github.com/jadegong/antdv-business-common/issues",
+  "keywords": [
+    "antdv-business-common",
+    "components",
+    "vue"
+  ],
+  "main": "./dist/antdv-business-common.umd.js",
+  "types": "./dist/env.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "start": "vite --config ./build/base.config.ts",

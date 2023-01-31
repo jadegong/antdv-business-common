@@ -1,28 +1,35 @@
-# antdv-charts-table
+# antdv-business-common
+
+## About
+Common business components of antdv.
+
+## Prerequests
+
+ant-design-vue for vue 3.
 
 ## Project setup
+
+### Install
 ```
-npm install
+npm i -S antdv-business-common
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-Or
-```
-npm run start
+### Useage
+**src/main.ts**
+```typescript
+import { createApp } from 'vue'
+import App from './App.vue'
+import Antd from 'ant-design-vue'
+import AntdvBusinessCommon from 'antdv-business-common
+import 'ant-design-vue/dist/antd.css'
+import 'antdv-business-common/dist/style.css'
+
+const app = createApp(App)
+app.use(Antd)
+app.use(AntdvBusinessCommon)
+
+app.mount('#app')
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Docs
+[abc.jadegong.cn](http://abc.jadegong.cn)
