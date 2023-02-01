@@ -32,4 +32,4 @@ app.mount('#app')
 ```
 
 ### Docs
-[abc.jadegong.cn](http://abc.jadegong.cn)
+[abc-vue.jadegong.cn](http://abc-vue.jadegong.cn)

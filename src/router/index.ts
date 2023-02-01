@@ -9,6 +9,12 @@ const routes = [
     meta: { title: '首页' },
   },
   {
+    path: '/start',
+    name: 'startPage',
+    component: HomeView,
+    meta: { title: '开始' },
+  },
+  {
     path: '/dataEntryDemo',
     name: 'dataEntryDemo',
     component: DemoContainer,
