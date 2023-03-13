@@ -15,6 +15,8 @@
     <a-range-picker
       v-if="range"
       v-model:value="value.date"
+      :show-time="value.type === 'datetime'"
+      :picker="(value.type === 'day' || value.type === 'datetime') ? 'date': value.type"
       :disabled-date="disabledDate"
       @change="onDateChange"
     />
@@ -33,6 +35,7 @@ import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
 
 import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 dayjs.extend(isSameOrAfter);
 
@@ -70,7 +73,7 @@ export default defineComponent({
   computed: {
     // 自定义禁选时间，默认今天可选今天以前
     disabledDate() {
-      return (currentDate) => currentDate.isSameOrAfter(dayjs().startOf(this.value.type || 'day'))
+      return (currentDate: Dayjs) => currentDate.isSameOrAfter(dayjs().startOf(this.value.type || 'day'))
     },
   },
   methods: {
@@ -84,7 +87,7 @@ export default defineComponent({
     /**
      * 选择回调
      */
-    onDateChange(date: dayjs | String | [dayjs, dayjs] | [String, String], dateString: String | [String, String]) {
+    onDateChange(date: Dayjs | String | [Dayjs, Dayjs] | [String, String], dateString: String | [String, String]) {
       this.$emit('onTypeDateValueChange', {type: this.value.type, date});
     },
   },

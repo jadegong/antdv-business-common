@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div style="width: 60%; margin: 0 auto">
+    <div style="width: 1200px;">
       <a-form layout="inline">
         <a-form-item label="">
           <abc-type-date-picker
-            :value="typeDatePickerValue"
-            :dateTypes="dateTypes"
+            :range="true"
+            :value="typeDatePickerPageState.typeDatePickerValue"
+            :dateTypes="typeDatePickerPageState.dateTypes"
             @onTypeDateValueChange="onTypeDateValueChange"
           >
           </abc-type-date-picker>
@@ -15,34 +16,74 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
 import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek'
+dayjs.extend(isoWeek)
+
+interface DateTypeModel {
+  key: String;
+  desc: String;
+}
+
+interface TypeFormatsModel {
+  [key: string]: string;
+}
+
+interface TypeDatePickerValueModel {
+  type: String;
+  date: Dayjs | String | [Dayjs, Dayjs] | [String, String] | [];
+}
+
+interface TypeDatePickerPageStateModel {
+  dateTypes: Array<DateTypeModel>;
+  typeFormats: TypeFormatsModel;
+  typeDatePickerValue: TypeDatePickerValueModel;
+}
 
 export default defineComponent({
   name: 'TypeDatePickerPage',
-  data() {
-    return {
-      dateTypes: [{ key: 'day', desc: '天' }, { key: 'month', desc: '月' }],
-      typeDatePickerValue: {
-          type: 'day',
-          date: '',
+  setup() {
+    const typeDatePickerPageState = reactive<TypeDatePickerPageStateModel>({
+      dateTypes: [{ key: 'day', desc: '天' }, { key: 'week', desc: '周' }, { key: 'month', desc: '月' }, { key: 'quarter', desc: '季' }],
+      typeFormats: {
+        datetime: 'YYYY-MM-DD HH:mm:ss',
+        day: 'YYYY-MM-DD',
+        month: 'YYYY-MM',
+        week: 'YYYY-WW',
+        quarter: 'YYYY-Q',
+        year: 'YYYY',
       },
-    };
-  },
-  methods: {
-    /**
-    * 处理选择的时间数据
-    */
-    onTypeDateValueChange(emitData: any) {
+      typeDatePickerValue: {
+        type: 'day',
+        date: [],
+      },
+    })
+
+    // functions
+    const onTypeDateValueChange = (emitData: any) => {
       const { type, date } = emitData;
-      this.typeDatePickerValue = { type, date };
-      let selectedDate = dayjs(date);
-      if (selectedDate.isValid()) {
-        console.log(selectedDate.format(type === 'day' ? 'YYYY-MM-DD' : 'YYYY-MM'));
+      typeDatePickerPageState.typeDatePickerValue.type = type;
+      typeDatePickerPageState.typeDatePickerValue.date = date;
+      if (typeof date === 'object' && date.length !== undefined) {
+        date.forEach((item: Dayjs) => {
+          console.log(item.format(typeDatePickerPageState.typeFormats[type]))
+        });
       } else {
+        let selectedDate = dayjs(date);
+        if (selectedDate.isValid()) {
+          console.log(selectedDate.format(type === 'day' ? 'YYYY-MM-DD' : 'YYYY-MM'));
+        } else {
           console.log('Invalid date');
+        }
       }
-    },
+    }
+    
+    return {
+      typeDatePickerPageState,
+      onTypeDateValueChange,
+    };
   },
 });
 </script>
